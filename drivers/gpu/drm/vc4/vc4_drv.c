@@ -52,7 +52,7 @@ static void vc4_drm_preclose(struct drm_device *dev, struct drm_file *file)
 
 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
 		if (vc4->firmware_kms)
-			vc4_fkms_cancel_page_flip(crtc, file);
+			DRM_ERROR("Firmware KMS attempt (vc4_drm_preclose)\n");
 		else
 			vc4_cancel_page_flip(crtc, file);
 	}
@@ -341,7 +341,6 @@ static struct platform_driver *const component_drivers[] = {
 	&vc4_dsi_driver,
 	&vc4_hvs_driver,
 	&vc4_crtc_driver,
-	&vc4_firmware_kms_driver,
 	&vc4_v3d_driver,
 };
 
